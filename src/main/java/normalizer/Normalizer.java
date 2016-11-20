@@ -103,7 +103,7 @@ public class Normalizer {
         JAXBContext jc2 = JAXBContext.newInstance(LoanResponse.class);
         Marshaller marshaller = jc2.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        JAXBElement<LoanResponse> je2 = new JAXBElement(new QName("Data"), LoanResponse.class, d);
+        JAXBElement<LoanResponse> je2 = new JAXBElement(new QName("LoanResponse"), LoanResponse.class, d);
         StringWriter sw = new StringWriter();
         marshaller.marshal(je2, sw);
 
