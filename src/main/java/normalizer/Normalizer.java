@@ -51,9 +51,7 @@ public class Normalizer {
             public void handleDelivery(String consumerTag, Envelope envelope, BasicProperties properties, byte[] body) throws IOException {
                 System.out.println(" [x] Received ");
                 try {
-                    System.out.println("bankName: " + properties.getHeaders().get("bankName"));
-                    System.out.println("total message: " + properties.getHeaders().get("total"));
-
+                  
                     String bodyString = removeBom(new String(body));
                     LoanResponse data = translate(bodyString);
 
@@ -73,7 +71,7 @@ public class Normalizer {
     }
 
     private LoanResponse translate(String bodyString) {
-        System.out.println("body " + bodyString);
+
         LoanResponse response = null;
         if (isXML(bodyString)) {
             try {
@@ -143,7 +141,7 @@ public class Normalizer {
         String corrId = prop.getCorrelationId();
         //information is added in corrId about how many message aggregator is going to receive for the corrId
         BasicProperties newProp = propBuilder(corrId, prop.getHeaders());
-        System.out.println("sending from normalizer to " + AGGREGATOREXCHANGENAME + " : " + xmlString);
+        System.out.println("sending"+ newProp.getHeaders().get("bankName")+" from normalizer to " + AGGREGATOREXCHANGENAME + " : " + xmlString);
         channel.basicPublish(AGGREGATOREXCHANGENAME, "", newProp, body);
 
         return true;
